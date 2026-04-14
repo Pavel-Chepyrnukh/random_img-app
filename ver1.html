@@ -16,6 +16,7 @@
         }
         button {
             padding: 10px 15px;
+            margin: 5px;
             cursor: pointer;
         }
     </style>
@@ -25,14 +26,44 @@
 <h2>Случайная картинка</h2>
 
 <button onclick="getImage()">Показать картинку</button>
+<button onclick="downloadImage()">Скачать</button>
 
 <br>
-<img id="image">
+<img id="image" crossorigin="anonymous">
 
 <script>
+    let imageLoaded = false;
+
     function getImage() {
-        document.getElementById("image").src =
-            "https://picsum.photos/600/400?random=" + Math.random();
+        const image = document.getElementById("image");
+        imageLoaded = false;
+
+        image.onload = function() {
+            imageLoaded = true;
+        };
+
+        image.src = "https://picsum.photos/600/400?random=" + Math.random();
+    }
+
+    function downloadImage() {
+        if (!imageLoaded) {
+            alert("Сначала загрузите картинку!");
+            return;
+        }
+
+        const image = document.getElementById("image");
+
+        const canvas = document.createElement("canvas");
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0);
+
+        const link = document.createElement("a");
+        link.download = "image.jpg";
+        link.href = canvas.toDataURL("image/jpeg");
+        link.click();
     }
 </script>
 
