@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Случайная картинка</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+        img {
+            max-width: 600px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Случайная картинка</h2>
+
+<button onclick="getImage()">Показать картинку</button>
+
+<br>
+<img id="image">
+
+<script>
+    function getImage() {
+        document.getElementById("image").src =
+            "https://picsum.photos/600/400?random=" + Math.random();
+    }
+</script>
+
+</body>
+</html>
